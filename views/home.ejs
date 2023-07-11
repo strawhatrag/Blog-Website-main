@@ -1,0 +1,18 @@
+<%- include('partials/header'); -%>
+  <!-- don't add ejs tags to html only for values and scripts -->
+  <h1>Heading</h1>
+  <p>
+    <%= startingContent %>
+  </p>
+
+  <% posts.forEach(post=>{ %>
+    <h1>
+      <%= post.postTitle %>
+    </h1>
+    <p>
+      <%= post.postContent %>
+    </p>
+
+    <% });%>
+
+      <%- include('partials/footer'); -%>
