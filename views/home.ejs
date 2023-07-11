@@ -10,7 +10,8 @@
       <%= post.postTitle %>
     </h1>
     <p>
-      <%= post.postContent %>
+      <%= post.postContent.substring(0, 150) + "..." %> <br>
+        <a href="/<%= post.postTitle %>">Read more..</a>
     </p>
 
     <% });%>

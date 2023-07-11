@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require("lodash");
 
 const homeStartingContent =
   "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
@@ -44,6 +45,7 @@ app.get("/compose", (req, res) => {
   res.render("compose");
 });
 
+// compose post
 app.post("/compose", (req, res) => {
   // notice postTitle is the input name we gave
   const { postTitle, postContent } = req.body;
@@ -52,6 +54,21 @@ app.post("/compose", (req, res) => {
   posts.push(newPost);
   // redirects to other pages
   res.redirect("/");
+});
+
+// params
+app.get("/:id", (req, res) => {
+  //      Lodash   -- cleans up the params
+  // _.lowerCase('--Foo-Bar--');    => 'foo bar'  , day1 becomes day 1
+  let title = _.lowerCase(req.params.id);
+  let page = posts.find((post) => post.postTitle === title);
+
+  if (page) {
+    res.render("post", {
+      postTitle: page.postTitle,
+      postContent: page.postContent,
+    });
+  }
 });
 
 app.listen(3000, function () {
